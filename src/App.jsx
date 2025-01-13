@@ -1,9 +1,15 @@
 import "./App.css";
+import Navbar from "./components/Navbar/Navbar";
+import { PerformanceList } from "./components/PerformanceList/PerformanceList";
 
 function App() {
   return (
     <>
-      <h1>Music</h1>
+      <div className="App">
+        <Navbar />
+
+        <PerformanceList />
+      </div>
     </>
   );
 }
