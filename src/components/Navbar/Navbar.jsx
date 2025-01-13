@@ -11,11 +11,11 @@ export default function Navbar() {
 
       <div className="navbar_links">
         <a href="">
-          인기순
+          장르별
           <img className="navbar_emoji" src={Fire} alt="fire emoji" />
         </a>
         <a href="">
-          최신순
+          날짜순
           <img className="navbar_emoji" src={Party} alt="party emoji" />
         </a>
         <a href="">
