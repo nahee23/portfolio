@@ -1,17 +1,17 @@
+import { useState } from "react";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
 import { PerformanceList } from "./components/PerformanceList/PerformanceList";
 
-function App() {
+export default function App() {
+  const [selectedGenre, setSelectedGenre] = useState("전체"); // 상태 관리
   return (
     <>
       <div className="App">
-        <Navbar />
+        <Navbar setSelectedGenre={setSelectedGenre} />
 
-        <PerformanceList />
+        <PerformanceList GENRE={selectedGenre} />
       </div>
     </>
   );
 }
-
-export default App;

@@ -16,7 +16,12 @@ export default function Card({ performance }) {
           <p>{performance.PERIOD}</p>
         </div>
         <div className="align_center movie_date_rate">
-          <p className="align_center">{performance.CNTC_INSTT_NM}</p>
+          <p className="align_center">
+            {performance.SPATIAL_COVERAGE ||
+              performance.EVENT_SITE ||
+              performance.CNTC_INSTT_NM ||
+              "Unknown Location"}
+          </p>
         </div>
 
         <p className="movie_description">{performance.CHARGE}</p>

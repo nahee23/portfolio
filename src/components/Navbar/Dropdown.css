@@ -1,0 +1,52 @@
+/* .dropdown_menu {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.dropdown_menu.show {
+  opacity: 1;
+  transform: translateY(0);
+} */
+
+/* Dropdown 메뉴 스타일 */
+.dropdown_menu {
+  position: absolute;
+  top: 100%; /* 부모 아래에 위치 */
+  left: 0;
+  background-color: #444;
+  border: 1px solid #555;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  padding: 0;
+  margin: 5px 0;
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Dropdown 항목 스타일 */
+.dropdown_menu li {
+  list-style: none;
+  padding: 10px 15px;
+  color: white;
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.dropdown_menu li:hover {
+  background-color: #555;
+}
+
+.dropdown_menu li a {
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  font-weight: 500;
+  color: #fff;
+  text-decoration: none;
+  padding: 0 15px;
+}
