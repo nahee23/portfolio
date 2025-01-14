@@ -29,11 +29,27 @@ export const PerformanceList = ({ GENRE }) => {
     setLoading(false);
   }, []);
 
+  const predefinedGenres = [
+    "전체",
+    "클래식",
+    "독주",
+    "뮤지컬",
+    "콘서트",
+    "실내악",
+    "성악",
+    "교향곡",
+  ];
+
   // 선택된 장르에 따라 데이터 필터링
   useEffect(() => {
     const filterPerformances = () => {
       if (GENRE === "전체") {
         setFilteredPerformances(performances); // 모든 공연 표시
+      } else if (GENRE === "기타") {
+        const others = performances.filter(
+          (performance) => !predefinedGenres.includes(performance.GENRE)
+        );
+        setFilteredPerformances(others);
       } else {
         const filtered = performances.filter(
           (performance) => performance.GENRE === GENRE

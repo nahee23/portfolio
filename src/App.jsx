@@ -5,6 +5,7 @@ import { PerformanceList } from "./components/PerformanceList/PerformanceList";
 
 export default function App() {
   const [selectedGenre, setSelectedGenre] = useState("전체"); // 상태 관리
+
   return (
     <>
       <div className="App">
