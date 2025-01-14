@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from "react";
-import Fire from "../../assets/fire.png";
 import Card from "./Card";
 import "./PerformanceList.css";
 import Spinner from "../layout/Spinner";
 
 export const PerformanceList = ({ GENRE }) => {
   const [performances, setPerformances] = useState([]);
+  const [filteredPerformances, setFilteredPerformances] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [sort, setSort] = useState({
-    by: "default",
-    order: "asc",
-  });
   useEffect(() => {
     setLoading(true);
     const myHeaders = new Headers();
@@ -34,46 +30,26 @@ export const PerformanceList = ({ GENRE }) => {
   }, []);
 
   // 선택된 장르에 따라 데이터 필터링
-  const filteredPerformances =
-    GENRE === "전체"
-      ? performances
-      : performances.filter((performance) => performance.GENRE === GENRE);
+  useEffect(() => {
+    const filterPerformances = () => {
+      if (GENRE === "전체") {
+        setFilteredPerformances(performances); // 모든 공연 표시
+      } else {
+        const filtered = performances.filter(
+          (performance) => performance.GENRE === GENRE
+        );
+        setFilteredPerformances(filtered); // 선택된 장르만 표시
+      }
+    };
 
-  const handleSort = (e) => {
-    const { name, value } = e.target;
-    setSort((prev) => ({ ...prev, [name]: value }));
-  };
-  console.log(sort);
+    filterPerformances();
+  }, [GENRE, performances]); // 의존성 배열에 GENRE와 performances 추가
 
   if (!loading) {
     return (
       <section className="movie_list">
         <header className="align_center movie_list_header">
-          <h2 className="align_center movie_list_heading">
-            {GENRE} <img src={Fire} alt="fire emoji" className="navbar_emoji" />
-          </h2>
-
-          <div className="align_center movie_list_fs">
-            <select
-              name="by"
-              id=""
-              onChange={handleSort}
-              className="movie_sorting"
-            >
-              <option value="default">SortBy</option>
-              <option value="release_date">Date</option>
-              <option value="title">Title</option>
-            </select>
-            <select
-              name="order"
-              id=""
-              onChange={handleSort}
-              className="movie_sorting"
-            >
-              <option value="asc">Ascending</option>
-              <option value="desc">Descending</option>
-            </select>
-          </div>
+          <h2 className="align_center movie_list_heading">{GENRE}</h2>
         </header>
         <div className="movie_cards">
           {filteredPerformances.map((performance) => (
