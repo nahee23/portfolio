@@ -59,7 +59,7 @@ export default function Navbar({
         )}
 
         <div className="navbar_item" onClick={toggleDateDropdown}>
-          <span>날짜순</span>
+          <span>공연 상태</span>
           <span className={`arrow ${viewDateDropdown ? "rotate" : ""}`}>
             &#9660;
           </span>
@@ -67,9 +67,9 @@ export default function Navbar({
         {viewDateDropdown && (
           <div className="dropdown-container date-dropdown">
             <ul className="dropdown_menu">
-              <li onClick={() => handleDateClick("공연예정")}>공연예정</li>
-              <li onClick={() => handleDateClick("공연중")}>공연중</li>
-              <li onClick={() => handleDateClick("공연완료")}>공연완료</li>
+              <li onClick={() => handleDateClick("공연예정")}>공연 예정</li>
+              <li onClick={() => handleDateClick("공연중")}>공연 중</li>
+              <li onClick={() => handleDateClick("공연완료")}>공연 완료</li>
             </ul>
           </div>
         )}
