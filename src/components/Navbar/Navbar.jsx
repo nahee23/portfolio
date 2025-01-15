@@ -7,6 +7,7 @@ export default function Navbar({
   setSelectedGenre,
   setDateFilter,
   onHomeClick,
+  setSelectedCharge,
 }) {
   const [viewDateDropdown, setViewDateDropdown] = useState(false);
   const [viewGenreDropdown, setViewGenreDropdown] = useState(false);
@@ -24,6 +25,10 @@ export default function Navbar({
   const handleDateClick = (filter) => {
     setDateFilter(filter); // 부모로 필터 상태 전달
     setViewDateDropdown(false); // 드롭다운 닫기
+  };
+
+  const handleFreeClick = () => {
+    setSelectedCharge("무료");
   };
   return (
     <nav className="navbar">
@@ -68,6 +73,10 @@ export default function Navbar({
             </ul>
           </div>
         )}
+
+        <div className="navbar_item" onClick={handleFreeClick}>
+          <span>무료 공연</span>
+        </div>
       </div>
     </nav>
   );

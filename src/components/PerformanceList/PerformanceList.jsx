@@ -3,7 +3,7 @@ import Card from "./Card";
 import "./PerformanceList.css";
 import Spinner from "../layout/Spinner";
 
-export const PerformanceList = ({ GENRE, dateFilter }) => {
+export const PerformanceList = ({ GENRE, dateFilter, selectedCharge }) => {
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 번호
   const itemsPerPage = 14; // 한 페이지에 표시할 카드 수
 
@@ -173,12 +173,49 @@ export const PerformanceList = ({ GENRE, dateFilter }) => {
     setFilteredPerformances(filtered);
   }, [GENRE, dateFilter, performances]);
 
+  // 선택된 장르와 요금에 따라 데이터 필터링
+  useEffect(() => {
+    const filterPerformances = () => {
+      let filtered = performances;
+
+      if (GENRE && GENRE !== "전체") {
+        if (GENRE === "기타") {
+          filtered = performances.filter(
+            (performance) => !predefinedGenres.includes(performance.GENRE)
+          );
+        } else {
+          filtered = performances.filter(
+            (performance) => performance.GENRE === GENRE
+          );
+        }
+      }
+
+      if (selectedCharge) {
+        filtered = filtered.filter(
+          (performance) =>
+            performance.CHARGE === "무료" ||
+            performance.CHARGE === "전석 무료" ||
+            performance.CHARGE === "전석 초대"
+        );
+      }
+
+      setFilteredPerformances(filtered);
+      setCurrentPage(1); // 필터 변경 시 첫 페이지로 이동
+    };
+
+    filterPerformances();
+  }, [GENRE, selectedCharge, performances]);
+
   if (!loading) {
     return (
       <section className="movie_list">
         <header className="align_center movie_list_header">
           <h2 className="align_center movie_list_heading">
-            {GENRE && dateFilter === "" ? GENRE : `${GENRE} - ${dateFilter}`}
+            {selectedCharge === "무료"
+              ? "무료 공연"
+              : GENRE && dateFilter === ""
+              ? GENRE
+              : `${GENRE} - ${dateFilter}`}
           </h2>
         </header>
         <div className="movie_cards">
