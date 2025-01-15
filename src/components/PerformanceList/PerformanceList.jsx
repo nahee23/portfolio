@@ -178,7 +178,7 @@ export const PerformanceList = ({ GENRE, dateFilter }) => {
       <section className="movie_list">
         <header className="align_center movie_list_header">
           <h2 className="align_center movie_list_heading">
-            {GENRE} - {dateFilter}
+            {GENRE && dateFilter === "" ? GENRE : `${GENRE} - ${dateFilter}`}
           </h2>
         </header>
         <div className="movie_cards">

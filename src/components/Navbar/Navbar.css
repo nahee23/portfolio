@@ -29,6 +29,7 @@
 }
 
 .navbar_item {
+  padding: 10px;
   font-size: 20px;
   justify-content: center; /* 텍스트와 화살표를 가로로 중앙 정렬 */
   gap: 8px; /* 텍스트와 화살표 간격 */
@@ -51,4 +52,19 @@
   width: 25px;
   height: 25px;
   margin-left: 7px;
+}
+
+.dropdown-container {
+  position: absolute;
+  z-index: 1000;
+}
+
+.genre-dropdown {
+  top: 50px; /* 장르별 드롭다운 위치 조정 */
+  left: 0;
+}
+
+.date-dropdown {
+  top: 50px; /* 날짜순 드롭다운 위치 조정 */
+  left: 100px; /* 필요에 따라 위치 조정 */
 }
