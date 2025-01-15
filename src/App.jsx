@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
 import { PerformanceList } from "./components/PerformanceList/PerformanceList";
+import Footer from "./components/Footer/Footer";
 
 export default function App() {
   const [selectedGenre, setSelectedGenre] = useState("전체"); // 상태 관리
@@ -29,6 +30,9 @@ export default function App() {
           dateFilter={dateFilter}
           selectedCharge={selectedCharge}
         />
+        <br />
+        <br />
+        <Footer />
       </div>
     </>
   );
