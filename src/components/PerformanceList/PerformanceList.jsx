@@ -3,13 +3,37 @@ import Card from "./Card";
 import "./PerformanceList.css";
 import Spinner from "../layout/Spinner";
 
-export const PerformanceList = ({ GENRE }) => {
+export const PerformanceList = ({ GENRE, dateFilter }) => {
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 번호
   const itemsPerPage = 14; // 한 페이지에 표시할 카드 수
 
   const [performances, setPerformances] = useState([]);
   const [filteredPerformances, setFilteredPerformances] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  // 날짜 문자열을 유효한 Date 객체로 변환
+  const parseDate = (dateString) => {
+    // 이미 Date 객체라면 그대로 반환
+    if (dateString instanceof Date) {
+      return dateString;
+    }
+
+    // YYYY-MM-DD 형식
+    if (/^\d{4}-\d{2}-\d{2}$/.test(dateString)) {
+      return new Date(dateString);
+    }
+
+    // YYYYMMDD 형식
+    if (/^\d{8}$/.test(dateString)) {
+      const year = dateString.slice(0, 4);
+      const month = dateString.slice(4, 6);
+      const day = dateString.slice(6, 8);
+      return new Date(`${year}-${month}-${day}`);
+    }
+    console.warn("Invalid date format:", dateString);
+    // 인식할 수 없는 형식일 경우 null 반환
+    return null;
+  };
 
   const predefinedGenres = [
     "전체",
@@ -79,11 +103,83 @@ export const PerformanceList = ({ GENRE }) => {
     setCurrentPage(pageNumber);
   };
 
+  // 날짜 필터링 함수
+  const filterByDate = (performances, filter) => {
+    const today = new Date();
+
+    return performances.filter((performance) => {
+      const period = performance.PERIOD || "";
+
+      // PERIOD 값이 예상하지 못한 형식일 경우 대비
+      if (typeof period !== "string") {
+        return false;
+      }
+
+      // 시작일과 종료일 파싱 (공백 또는 ~를 기준으로 분리)
+      const dates = period.split(/[\s~]+/).map((date) => date.trim());
+      if (dates.length < 2) {
+        console.warn("Skipping: Incomplete PERIOD range:", period);
+        return false; // 시작일과 종료일이 모두 있어야 함
+      }
+
+      const start = parseDate(dates[0]); // 첫 번째 날짜를 시작일로 간주
+      const end = parseDate(dates[1]); // 두 번째 날짜를 종료일로 간주
+
+      if (!start || !end) {
+        return false; // 유효하지 않은 날짜는 제외
+      }
+
+      if (filter === "공연완료") {
+        return end < today; // 종료일이 오늘 이전
+      }
+      if (filter === "공연중") {
+        return start <= today && end >= today; // 현재 날짜가 공연 기간 내
+      }
+      if (filter === "공연예정") {
+        return start > today; // 시작일이 오늘 이후
+      }
+      return true; // 기본 값
+    });
+  };
+
+  // 필터링 처리
+  useEffect(() => {
+    let filtered = performances;
+
+    //장르 필터링
+    if (GENRE !== "전체") {
+      filtered =
+        GENRE === "기타"
+          ? performances.filter(
+              (performance) =>
+                ![
+                  "클래식",
+                  "독주",
+                  "뮤지컬",
+                  "콘서트",
+                  "실내악",
+                  "성악",
+                  "교향곡",
+                ].includes(performance.GENRE)
+            )
+          : performances.filter((performance) => performance.GENRE === GENRE);
+    }
+
+    // 날짜 필터링
+    if (dateFilter) {
+      filtered = filterByDate(filtered, dateFilter);
+    }
+
+    setFilteredPerformances(filtered);
+  }, [GENRE, dateFilter, performances]);
+
   if (!loading) {
     return (
       <section className="movie_list">
         <header className="align_center movie_list_header">
-          <h2 className="align_center movie_list_heading">{GENRE}</h2>
+          <h2 className="align_center movie_list_heading">
+            {GENRE} - {dateFilter}
+          </h2>
         </header>
         <div className="movie_cards">
           {currentItems.map((performance) => (

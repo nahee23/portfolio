@@ -3,7 +3,6 @@ import "./Dropdown.css";
 
 const Dropdown = ({ setSelectedGenre }) => {
   const genres = [
-    "전체",
     "클래식",
     "독주",
     "뮤지컬",
