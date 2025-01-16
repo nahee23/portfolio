@@ -50,10 +50,7 @@ export const PerformanceList = ({ GENRE, dateFilter, selectedCharge }) => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await fetch(
-          "/.netlify/functions/proxy",
-          requestOptions
-        );
+        const response = await fetch("/.netlify/functions/proxy");
         const data = await response.json();
         if (
           data.response &&
