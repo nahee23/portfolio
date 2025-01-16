@@ -73,7 +73,7 @@ export const PerformanceList = ({ GENRE, dateFilter, selectedCharge }) => {
     };
 
     fetchData();
-  }, [requestOptions]);
+  }, []);
   // 선택된 장르에 따라 데이터 필터링
   useEffect(() => {
     const filterPerformances = () => {
