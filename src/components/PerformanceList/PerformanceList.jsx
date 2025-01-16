@@ -47,30 +47,27 @@ export const PerformanceList = ({ GENRE, dateFilter, selectedCharge }) => {
   ];
 
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const response = await fetch("/.netlify/functions/proxy");
-        const data = await response.json();
-        if (
-          data.response &&
-          data.response.body &&
-          data.response.body.items &&
-          data.response.body.items.item
-        ) {
-          setPerformances(data.response.body.items.item);
-        } else {
-          throw new Error("Unexpected response format");
-        }
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
+    setLoading(true);
+    const myHeaders = new Headers();
+    myHeaders.append("accept", "application/json");
+
+    const requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow",
     };
 
-    fetchData();
+    fetch(
+      "http://api.kcisa.kr/openapi/API_CCA_144/request?serviceKey=eef092b1-e625-4786-aaa0-56e90db1252d&numOfRows=100&pageNo=1",
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((data) => setPerformances(data.response.body.items.item))
+      .catch((error) => console.error(error));
+
+    setLoading(false);
   }, []);
+
   // 선택된 장르에 따라 데이터 필터링
   useEffect(() => {
     const filterPerformances = () => {
