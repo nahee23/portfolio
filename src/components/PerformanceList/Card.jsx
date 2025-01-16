@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./Card.css";
 import defaultImg from "../../assets/default-featured-image.png.jpg";
 import spinner from "../../assets/Spinner@1x-1.0s-200px-200px.gif";
