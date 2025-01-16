@@ -47,24 +47,33 @@ export const PerformanceList = ({ GENRE, dateFilter, selectedCharge }) => {
   ];
 
   useEffect(() => {
-    setLoading(true);
-    const myHeaders = new Headers();
-    myHeaders.append("accept", "application/json");
-
-    const requestOptions = {
-      method: "GET",
-      headers: myHeaders,
-      redirect: "follow",
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch(
+          "/.netlify/functions/proxy",
+          requestOptions
+        );
+        const data = await response.json();
+        if (
+          data.response &&
+          data.response.body &&
+          data.response.body.items &&
+          data.response.body.items.item
+        ) {
+          setPerformances(data.response.body.items.item);
+        } else {
+          throw new Error("Unexpected response format");
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
     };
 
-    fetch("/.netlify/functions/proxy", requestOptions)
-      .then((response) => response.json())
-      .then((data) => setPerformances(data.response.body.items.item))
-      .catch((error) => console.error(error));
-
-    setLoading(false);
-  }, []);
-
+    fetchData();
+  }, [requestOptions]);
   // 선택된 장르에 따라 데이터 필터링
   useEffect(() => {
     const filterPerformances = () => {
