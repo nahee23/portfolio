@@ -58,7 +58,7 @@ export const PerformanceList = ({ GENRE, dateFilter, selectedCharge }) => {
     };
 
     fetch(
-      "/api/openapi/API_CCA_144/request?serviceKey=eef092b1-e625-4786-aaa0-56e90db1252d&numOfRows=100&pageNo=1",
+      "http://api.kcisa.kr/openapi/API_CCA_144/request?serviceKey=eef092b1-e625-4786-aaa0-56e90db1252d&numOfRows=100&pageNo=1",
       requestOptions
     )
       .then((response) => response.json())
