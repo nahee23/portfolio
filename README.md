@@ -1,8 +1,32 @@
 # React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🎭 공연 필터링 앱
+React로 개발된 이 애플리케이션은 사용자가 공연 데이터를 확인하고, 장르별 또는 날짜별로 데이터를 필터링할 수 있는 기능을 제공합니다. 사용하기 쉬운 인터페이스와 깔끔한 반응형 디자인을 특징으로 합니다.
 
-Currently, two official plugins are available:
+🌟 주요 기능
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+    - 🎭 장르별 필터링: 클래식, 뮤지컬 등 장르를 선택하여 공연 데이터를 필터링.
+    - 📅 날짜순 필터링: 공연완료, 공연중, 공연예정 조건으로 공연 데이터를 필터링.
+    - 📜 드롭다운 상태 관리: 여러 드롭다운이 동시에 열리지 않도록 관리.
+    - ✨ 로딩 표시: 데이터를 가져오는 동안 로딩 스피너를 표시.
+
+💻 기술 스택
+
+    - 프론트엔드: React
+    - 스타일링: CSS (반응형 디자인)
+    - API: KCISA 공연 API
+
+📝 사용 방법
+
+1. 장르별 필터링
+   - 상단의 "장르별" 드롭다운을 클릭하여 원하는 장르를 선택합니다.
+   - 선택된 장르에 맞는 공연 데이터만 화면에 표시됩니다.
+2. 날짜순 필터링
+   - "날짜순" 드롭다운을 클릭해 공연완료, 공연중, 공연예정 중 하나를 선택합니다.
+   - 선택된 조건에 따라 공연 데이터가 필터링됩니다.
+   - "필터 취소"를 클릭하면 날짜 필터링이 해제됩니다.
+3. 데이터 로딩 확인
+   - 데이터를 가져오는 동안 로딩 스피너가 표시됩니다.
+   - 로딩이 완료되면 공연 데이터가 화면에 나타납니다.
+
+[배포주소](https://portfolio-nahee23.netlify.app/)
